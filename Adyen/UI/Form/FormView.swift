@@ -7,24 +7,25 @@
 import UIKit
 
 /// Displays a form for the user to enter details.
-internal final class FormView: UIScrollView {
+public final class FormView: UIScrollView {
 
     /// Initializes the form view.
-    internal init() {
+    public init() {
         super.init(frame: .zero)
         
-        preservesSuperviewLayoutMargins = true
+//        preservesSuperviewLayoutMargins = true
+        translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
 
         configureConstraints()
     }
     
     @available(*, unavailable)
-    internal required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override internal var intrinsicContentSize: CGSize {
+    override public var intrinsicContentSize: CGSize {
         stackView.adyen.minimalSize
     }
     
@@ -39,7 +40,7 @@ internal final class FormView: UIScrollView {
 
     // MARK: - Stack View
     
-    private lazy var stackView: UIStackView = {
+    public lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill
@@ -51,7 +52,7 @@ internal final class FormView: UIScrollView {
     // MARK: - Layout
 
     private func configureConstraints() {
-        stackView.adyen.anchor(inside: self)
         stackView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        stackView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
 }

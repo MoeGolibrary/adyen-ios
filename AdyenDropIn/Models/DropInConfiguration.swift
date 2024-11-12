@@ -150,6 +150,8 @@ public extension DropInComponent {
 
         /// Indicates whether to show the security code field at all. Defaults to true.
         public var showsSecurityCodeField: Bool
+        
+        public var showsSubmitButton: Bool
 
         /// Indicates whether to show the security fields for South Korea issued cards. Defaults to `auto`.
         /// In AUTO mode the field will appear only for card issued in "KR" (South Korea).
@@ -193,6 +195,7 @@ public extension DropInComponent {
             showsHolderNameField: Bool = false,
             showsStorePaymentMethodField: Bool = true,
             showsSecurityCodeField: Bool = true,
+            showsSubmitButton: Bool = true,
             koreanAuthenticationMode: CardComponent.FieldVisibility = .auto,
             socialSecurityNumberMode: CardComponent.FieldVisibility = .auto,
             storedCardConfiguration: StoredCardConfiguration = StoredCardConfiguration(),
@@ -202,6 +205,7 @@ public extension DropInComponent {
         ) {
             self.showsHolderNameField = showsHolderNameField
             self.showsSecurityCodeField = showsSecurityCodeField
+            self.showsSubmitButton = showsSubmitButton
             self.showsStorePaymentMethodField = showsStorePaymentMethodField
             self.stored = storedCardConfiguration
             self.allowedCardTypes = allowedCardTypes

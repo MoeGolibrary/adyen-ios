@@ -60,6 +60,8 @@ public protocol AnyCardComponentConfiguration {
 
     /// Indicates whether to show the security code field at all. Defaults to true.
     var showsSecurityCodeField: Bool { get }
+    
+    var showsSubmitButton: Bool { get }
 
     /// Indicates whether to show the security fields for South Korea issued cards. Defaults to `auto`.
     /// In AUTO mode the field will appear only for card issued in "KR" (South Korea).
@@ -134,6 +136,8 @@ extension CardComponent {
 
         /// Indicates whether to show the security code field at all. Defaults to true.
         public var showsSecurityCodeField: Bool
+        
+        public var showsSubmitButton: Bool
 
         /// Indicates whether to show the security fields for South Korea issued cards. Defaults to `auto`.
         /// In AUTO mode the field will appear only for card issued in "KR" (South Korea).
@@ -188,6 +192,7 @@ extension CardComponent {
             showsHolderNameField: Bool = false,
             showsStorePaymentMethodField: Bool = true,
             showsSecurityCodeField: Bool = true,
+            showsSubmitButton: Bool = true,
             koreanAuthenticationMode: FieldVisibility = .auto,
             socialSecurityNumberMode: FieldVisibility = .auto,
             storedCardConfiguration: StoredCardConfiguration = StoredCardConfiguration(),
@@ -200,6 +205,7 @@ extension CardComponent {
             self.localizationParameters = localizationParameters
             self.showsHolderNameField = showsHolderNameField
             self.showsSecurityCodeField = showsSecurityCodeField
+            self.showsSubmitButton = showsSubmitButton
             self.showsStorePaymentMethodField = showsStorePaymentMethodField
             self.stored = storedCardConfiguration
             self.allowedCardTypes = allowedCardTypes

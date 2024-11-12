@@ -17,6 +17,8 @@ open class FormViewController: UIViewController, AdyenObserver, PreferredContent
     }
 
     public var requiresKeyboardInput: Bool { formRequiresInputView() }
+    
+    public var enablekeyboardObserver = false
 
     /// Indicates the `FormViewController` UI styling.
     public let style: ViewStyle
@@ -50,8 +52,10 @@ open class FormViewController: UIViewController, AdyenObserver, PreferredContent
         itemManager.topLevelItemViews.forEach(formView.appendItemView(_:))
         delegate?.viewDidLoad(viewController: self)
         
-        observe(keyboardObserver.$keyboardRect) { [weak self] _ in
-            self?.didUpdatePreferredContentSize()
+        if enablekeyboardObserver {
+            observe(keyboardObserver.$keyboardRect) { [weak self] _ in
+                self?.didUpdatePreferredContentSize()
+            }
         }
     }
 
@@ -109,6 +113,10 @@ open class FormViewController: UIViewController, AdyenObserver, PreferredContent
     public func willUpdatePreferredContentSize() { /* Empty implementation */ }
 
     public func didUpdatePreferredContentSize() {
+        if !enablekeyboardObserver {
+            return
+        }
+        
         let bottomInset: CGFloat = keyboardObserver.keyboardRect.height - view.safeAreaInsets.bottom
         let context = AnimationContext(
             animationKey: Animations.keyboardBottomInset,
@@ -214,10 +222,12 @@ open class FormViewController: UIViewController, AdyenObserver, PreferredContent
         view.addSubview(formView)
         view.backgroundColor = style.backgroundColor
         formView.backgroundColor = style.backgroundColor
-        formView.adyen.anchor(inside: view.safeAreaLayoutGuide)
+        
+        formView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        formView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
 
-    private lazy var formView: FormView = {
+    public lazy var formView: FormView = {
         let form = FormView()
         form.translatesAutoresizingMaskIntoConstraints = false
         return form
@@ -235,7 +245,7 @@ open class FormViewController: UIViewController, AdyenObserver, PreferredContent
 
     // MARK: - Other
 
-    private func assignInitialFirstResponder() {
+    public func assignInitialFirstResponder() {
         guard view.isUserInteractionEnabled else { return }
         let textItemView = itemManager.topLevelItemViews.first(where: { $0.canBecomeFirstResponder && !$0.isHidden })
         textItemView?.becomeFirstResponder()

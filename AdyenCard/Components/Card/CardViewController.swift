@@ -10,12 +10,15 @@ import UIKit
     import AdyenEncryption
 #endif
 
-internal protocol CardViewControllerProtocol {
+public protocol CardViewControllerProtocol {
     func update(storePaymentMethodFieldVisibility isVisible: Bool)
     func update(storePaymentMethodFieldValue isOn: Bool)
 }
 
-internal class CardViewController: FormViewController {
+@_spi(AdyenInternal)
+public class CardViewController: FormViewController {
+    
+    public var enableAutoFitSize = true
 
     private let configuration: CardComponent.Configuration
 
@@ -65,7 +68,7 @@ internal class CardViewController: FormViewController {
     ///   - initialCountryCode: The initially used country code for the billing address
     ///   - scope: The view's scope.
     ///   - localizationParameters: Localization parameters.
-    internal init(
+    public init(
         configuration: CardComponent.Configuration,
         shopperInformation: PrefilledShopperInformation?,
         formStyle: FormComponentStyle,
@@ -96,14 +99,14 @@ internal class CardViewController: FormViewController {
 
     // MARK: - View lifecycle
 
-    override internal func viewDidLoad() {
+    override public func viewDidLoad() {
         setupView()
         setupViewRelations()
         observeNumberItem()
         super.viewDidLoad()
     }
 
-    override internal func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         prefill()
     }
@@ -112,7 +115,7 @@ internal class CardViewController: FormViewController {
 
     internal weak var cardDelegate: CardViewControllerDelegate?
 
-    internal var card: Card {
+    public var card: Card {
         let expiryMonth = items.expiryDateItem.expiryMonth
         let expiryYear = items.expiryDateItem.expiryYear
         
@@ -125,15 +128,15 @@ internal class CardViewController: FormViewController {
         )
     }
     
-    internal var selectedBrand: String? {
+    public var selectedBrand: String? {
         items.numberContainerItem.numberItem.currentBrand?.type.rawValue
     }
     
-    internal var cardBIN: String {
+    public var cardBIN: String {
         items.numberContainerItem.numberItem.binValue
     }
 
-    internal var validAddress: PostalAddress? {
+    public var validAddress: PostalAddress? {
         let address: PostalAddress
         let requiredFields: Set<AddressField>
         
@@ -160,7 +163,7 @@ internal class CardViewController: FormViewController {
         return address
     }
 
-    internal var kcpDetails: KCPDetails? {
+    public var kcpDetails: KCPDetails? {
         guard
             configuration.koreanAuthenticationMode != .hide,
             let taxNumber = items.additionalAuthCodeItem.nonEmptyValue,
@@ -170,27 +173,27 @@ internal class CardViewController: FormViewController {
         return KCPDetails(taxNumber: taxNumber, password: password)
     }
 
-    internal var socialSecurityNumber: String? {
+    public var socialSecurityNumber: String? {
         guard configuration.socialSecurityNumberMode != .hide else { return nil }
         return items.socialSecurityNumberItem.nonEmptyValue
     }
 
-    internal var storePayment: Bool? {
+    public var storePayment: Bool? {
         configuration.showsStorePaymentMethodField ? items.storeDetailsItem.value : nil
     }
 
-    internal var installments: Installments? {
+    public var installments: Installments? {
         guard let installmentsItem = items.installmentsItem,
               !installmentsItem.isHidden.wrappedValue else { return nil }
         return installmentsItem.value.element.installmentValue
     }
 
-    internal func stopLoading() {
+    public func stopLoading() {
         items.button.showsActivityIndicator = false
         view.isUserInteractionEnabled = true
     }
 
-    internal func startLoading() {
+    public func startLoading() {
         items.button.showsActivityIndicator = true
         view.isUserInteractionEnabled = false
     }
@@ -289,10 +292,12 @@ extension CardViewController {
         if let billingAddressItem {
             append(billingAddressItem)
         }
-
-        append(FormSpacerItem())
-        append(items.button)
-        append(FormSpacerItem(numberOfSpaces: 2))
+        
+        if configuration.showsSubmitButton {
+            append(FormSpacerItem())
+            append(items.button)
+            append(FormSpacerItem(numberOfSpaces: 2))
+        }
     }
     
     private var billingAddressItem: FormItem? {
@@ -383,14 +388,14 @@ extension FormValueItem where ValueType == String {
 }
 
 extension CardViewController: CardViewControllerProtocol {
-    internal func update(storePaymentMethodFieldVisibility isVisible: Bool) {
+    public func update(storePaymentMethodFieldVisibility isVisible: Bool) {
         if !isVisible {
             items.storeDetailsItem.value = false
         }
         items.storeDetailsItem.isVisible = isVisible
     }
 
-    internal func update(storePaymentMethodFieldValue isOn: Bool) {
+    public func update(storePaymentMethodFieldValue isOn: Bool) {
         items.storeDetailsItem.value = items.storeDetailsItem.isVisible && isOn
     }
 }
