@@ -45,11 +45,11 @@ internal enum ConfigurationConstants {
         return try! APIContext(environment: componentsEnvironment, clientKey: "local_DUMMYKEYFORTESTING")
     }
 
-    static let clientKey = "{YOUR_CLIENT_KEY}"
+    static let clientKey = "test_QDOO22PU5FA7LE76ASPQJNKWGAILVO4C"
 
-    static let demoServerAPIKey = "{YOUR_DEMO_SERVER_API_KEY}"
+    static let demoServerAPIKey = "AQEuhmfxLo/LbxVAw0m/n3Q5qf3VZYRIKpxrW2ZZ03a/USoDi7vjtK8PhFRN7uVM7RDBXVsNvuR83LVYjEgiTGAH-8CQVRhmIucdhZDWWVAwx+XFjhLzxqU6VzDtE7mLVWYg=-i1iB7:s()H,ZZJ..x(j"
 
-    static let merchantAccount = "{YOUR_MERCHANT_ACCOUNT}"
+    static let merchantAccount = "MoeGoAccountECOM"
 
     static let appleTeamIdentifier = "{YOUR_APPLE_DEVELOPMENT_TEAM_ID}"
 

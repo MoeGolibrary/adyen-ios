@@ -98,6 +98,7 @@ internal final class ComponentsViewController: UIViewController {
                     selectionHandler: presentInstantPaymentComponent
                 )
             ],
+            [ComponentsItem(title: "Meogo Card", selectionHandler: presentMoegoCard)],
             [ComponentsItem(title: "Apple Pay", selectionHandler: presentApplePayComponent)]
         ]
         
@@ -129,6 +130,12 @@ internal final class ComponentsViewController: UIViewController {
     }
 
     // MARK: - Components
+    
+    internal func presentMoegoCard() {
+        let moeogoCardExample = MoegoCardeExample()
+//        moeogoCardExample.start()
+        self.navigationController?.pushViewController(moeogoCardExample, animated: true)
+    }
 
     internal func presentCardComponent() {
         if componentsView.isUsingSession {
