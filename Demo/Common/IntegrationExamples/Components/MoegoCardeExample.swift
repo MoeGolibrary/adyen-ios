@@ -49,9 +49,9 @@ internal final class MoegoCardeExample: UIViewController {
         // 父视图根据子视图自适应高度
         // 1. 父视图不要设置heightAnchor，只设置widthAnchor;
         // 2. 子视图设置widthAnchor和heightAnchor都与父视图相等
-        NSLayoutConstraint.activate([
-            cardViewController.view.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-        ])
+//        NSLayoutConstraint.activate([
+//            cardViewController.view.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+//        ])
         
         NSLayoutConstraint.activate([
             submitButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 48),
@@ -89,6 +89,8 @@ internal final class MoegoCardeExample: UIViewController {
         let style = FormComponentStyle()
         var configuration = CardComponent.Configuration(style: style)
         configuration.showsSubmitButton = false
+        configuration.showsStorePaymentMethodField = false
+        configuration.showsSupportedCardLogos = false
         
         return configuration
     }

@@ -8,14 +8,15 @@
 import UIKit
 
 /// A form item which consists of card number item and the supported card icons below.
-internal final class FormCardNumberContainerItem: FormItem, AdyenObserver {
+@_spi(AdyenInternal)
+public final class FormCardNumberContainerItem: FormItem, AdyenObserver {
     
     public var isHidden: AdyenObservable<Bool> = AdyenObservable(false)
     
     /// The supported card type logos.
     internal let cardTypeLogos: [FormCardLogosItem.CardTypeLogo]
     
-    internal var identifier: String?
+    public var identifier: String?
     
     internal let style: FormTextItemStyle
     
@@ -23,7 +24,7 @@ internal final class FormCardNumberContainerItem: FormItem, AdyenObserver {
     
     private let localizationParameters: LocalizationParameters?
    
-    internal lazy var subitems: [FormItem] = {
+    public lazy var subitems: [FormItem] = {
         var subItems: [FormItem] = [numberItem]
         if showsSupportedCardLogos {
             subItems.append(supportedCardLogosItem)
@@ -31,7 +32,7 @@ internal final class FormCardNumberContainerItem: FormItem, AdyenObserver {
         return subItems
     }()
     
-    internal lazy var numberItem: FormCardNumberItem = {
+    public lazy var numberItem: FormCardNumberItem = {
         let item = FormCardNumberItem(
             cardTypeLogos: cardTypeLogos,
             style: style,
@@ -67,7 +68,7 @@ internal final class FormCardNumberContainerItem: FormItem, AdyenObserver {
         }
     }
     
-    internal func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
+    public func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
         builder.build(with: self)
     }
     

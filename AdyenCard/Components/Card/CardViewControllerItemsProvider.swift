@@ -9,13 +9,13 @@ import UIKit
 
 extension CardViewController {
     
-    internal struct InfoEventData {
-        internal let type: AnalyticsEventInfo.InfoType
-        internal let target: AnalyticsEventTarget
-        internal let error: AnalyticsValidationError?
+    public struct InfoEventData {
+        public let type: AnalyticsEventInfo.InfoType
+        public let target: AnalyticsEventTarget
+        public let error: AnalyticsValidationError?
     }
 
-    internal final class ItemsProvider {
+    public final class ItemsProvider {
 
         private let formStyle: FormComponentStyle
 
@@ -40,7 +40,7 @@ extension CardViewController {
         private let addressMode: CardComponent.AddressFormType
         
         /// Closure that is called when an event is triggered via the field items.
-        internal var onDidTriggerInfoEvent: ((InfoEventData) -> Void)?
+        public var onDidTriggerInfoEvent: ((InfoEventData) -> Void)?
 
         internal init(
             formStyle: FormComponentStyle,
@@ -106,7 +106,7 @@ extension CardViewController {
             return zipCodeItem
         }()
 
-        internal lazy var numberContainerItem: FormCardNumberContainerItem = {
+        public lazy var numberContainerItem: FormCardNumberContainerItem = {
             let item = FormCardNumberContainerItem(
                 cardTypeLogos: cardLogos,
                 showsSupportedCardLogos: configuration.showsSupportedCardLogos,
@@ -120,7 +120,7 @@ extension CardViewController {
             return item
         }()
 
-        internal lazy var expiryDateItem: FormCardExpiryDateItem = {
+        public lazy var expiryDateItem: FormCardExpiryDateItem = {
             let expiryDateItem = FormCardExpiryDateItem(
                 style: formStyle.textField,
                 localizationParameters: localizationParameters
@@ -133,7 +133,7 @@ extension CardViewController {
             return expiryDateItem
         }()
 
-        internal lazy var securityCodeItem: FormCardSecurityCodeItem = {
+        public lazy var securityCodeItem: FormCardSecurityCodeItem = {
             let securityCodeItem = FormCardSecurityCodeItem(
                 style: formStyle.textField,
                 localizationParameters: localizationParameters

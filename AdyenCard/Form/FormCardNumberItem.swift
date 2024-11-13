@@ -8,7 +8,8 @@
 import UIKit
 
 /// A form item into which a card number is entered.
-internal final class FormCardNumberItem: FormTextItem, AdyenObserver {
+@_spi(AdyenInternal)
+public final class FormCardNumberItem: FormTextItem, AdyenObserver {
     
     private enum Constants {
         static let smallBinLength = 6
@@ -101,7 +102,7 @@ internal final class FormCardNumberItem: FormTextItem, AdyenObserver {
     
     // MARK: - BuildableFormItem
     
-    override internal func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
+    override public func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
         builder.build(with: self)
     }
     

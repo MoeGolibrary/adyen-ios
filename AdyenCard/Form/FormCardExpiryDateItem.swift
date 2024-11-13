@@ -7,7 +7,8 @@
 @_spi(AdyenInternal) import Adyen
 
 /// A form item into which card expiry date is entered, formatted and validated.
-internal final class FormCardExpiryDateItem: FormTextItem {
+@_spi(AdyenInternal)
+public final class FormCardExpiryDateItem: FormTextItem {
     
     internal var localizationParameters: LocalizationParameters?
     
@@ -21,20 +22,20 @@ internal final class FormCardExpiryDateItem: FormTextItem {
     private let expiryDateValidator = CardExpiryDateValidator()
     
     /// Returns the month part of the expiry date item
-    internal var expiryMonth: String? {
+    public var expiryMonth: String? {
         guard let nonEmptyValue else { return nil }
         return nonEmptyValue.adyen[0...1]
     }
     
     /// Returns the year part of the expiry date item by prefixing it with `"20"`
-    internal var expiryYear: String? {
+    public var expiryYear: String? {
         guard let nonEmptyValue else { return nil }
         return "20" + nonEmptyValue.adyen[2...3]
     }
     
     /// Initiate new instance of `FormTextInputItem`
     /// - Parameter style: The `FormTextItemStyle` UI style.
-    internal init(
+    public init(
         style: FormTextItemStyle = FormTextItemStyle(),
         localizationParameters: LocalizationParameters? = nil
     ) {
@@ -47,7 +48,7 @@ internal final class FormCardExpiryDateItem: FormTextItem {
         keyboardType = .numberPad
     }
     
-    override internal func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
+    override public func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
         builder.build(with: self)
     }
     

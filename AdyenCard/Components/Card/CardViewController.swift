@@ -38,7 +38,7 @@ public class CardViewController: FormViewController {
     
     private let cardLogos: [FormCardLogosItem.CardTypeLogo]
     
-    internal lazy var items = {
+    public lazy var items = {
         
         ItemsProvider(
             formStyle: formStyle,
@@ -100,6 +100,7 @@ public class CardViewController: FormViewController {
     // MARK: - View lifecycle
 
     override public func viewDidLoad() {
+//        view.translatesAutoresizingMaskIntoConstraints = false
         setupView()
         setupViewRelations()
         observeNumberItem()
@@ -330,7 +331,10 @@ extension CardViewController {
 
     private func setupViewRelations() {
         observe(items.numberContainerItem.numberItem.publisher) { [weak self] in self?.didChange(pan: $0) }
-        observe(items.numberContainerItem.numberItem.$binValue) { [weak self] in self?.didChange(bin: $0) }
+//        observe(items.numberContainerItem.numberItem.$binValue) { [weak self] in self?.didChange(bin: $0) }
+        
+        observe(items.expiryDateItem.publisher) { [weak self] in self?.didChange(pan: $0) }
+        observe(items.securityCodeItem.publisher) { [weak self] in self?.didChange(pan: $0) }
         
         items.button.buttonSelectionHandler = { [weak cardDelegate] in
             cardDelegate?.didSelectSubmitButton()

@@ -7,7 +7,8 @@
 @_spi(AdyenInternal) import Adyen
 
 /// A form item into which a card's security code (CVC/CVV) is entered.
-internal final class FormCardSecurityCodeItem: FormTextItem {
+@_spi(AdyenInternal)
+public final class FormCardSecurityCodeItem: FormTextItem {
 
     internal enum DisplayMode {
         case required
@@ -63,7 +64,7 @@ internal final class FormCardSecurityCodeItem: FormTextItem {
         }
     }
     
-    override internal func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
+    override public func build(with builder: FormItemViewBuilder) -> AnyFormItemView {
         builder.build(with: self)
     }
     
