@@ -50,7 +50,7 @@ public struct Environment: AnyAPIEnvironment {
     ///
     /// - Parameters:
     ///   - baseURL: The environment base url.
-    internal init(baseURL: URL) {
+    public init(baseURL: URL) {
         self.baseURL = baseURL
     }
 
