@@ -5,7 +5,7 @@
 //
 
 @_spi(AdyenInternal) import Adyen
-@_spi(AdyenInternal) import AdyenNetworking
+import AdyenNetworking
 import Foundation
 
 internal struct CreateOrderRequest: APIRequest {

@@ -6,7 +6,7 @@
 
 @_spi(AdyenInternal) @testable import Adyen
 @testable import AdyenActions
-@testable import AdyenNetworking
+import AdyenNetworking
 import XCTest
 
 class AppleWalletPassProviderTests: XCTestCase {

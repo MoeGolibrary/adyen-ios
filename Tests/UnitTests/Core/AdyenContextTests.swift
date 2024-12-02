@@ -6,7 +6,7 @@
 
 @testable @_spi(AdyenInternal) import Adyen
 @testable import AdyenEncryption
-@testable import AdyenNetworking
+import AdyenNetworking
 import XCTest
 
 class AdyenContextTests: XCTestCase {

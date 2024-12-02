@@ -6,7 +6,7 @@
 
 import XCTest
 @_spi(AdyenInternal) @testable import Adyen
-@testable import AdyenNetworking
+import AdyenNetworking
 
 class AnalyticsProviderTests: XCTestCase {
 
